@@ -23,6 +23,7 @@ Pin configuration
 
 (The pins can be connected according to your choice but they must all be PWM signal pins and corresponding servo motor pins must be connected accordingly.)
 | Finger   | PWM Pins   | Motor Driver Pins |
+|----------|------------|-------------------|
 | Index    | 3          |c1                 |
 | Ring     |5           |D5                 |
 | Thumb    |9           |D4                 |
@@ -35,6 +36,7 @@ Pin configuration
 
 ## Budget And Resource
 | Component              | Price  |
+|------------------------|--------|
 | Raspberry Pi Pico W    | ₹700   |
 | MG995 Servo Motor [5]  | ₹1475  |
 | Acrylic Sheet          | ₹599   |
