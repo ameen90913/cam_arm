@@ -42,7 +42,7 @@ Pin configuration
 | SMPS                   | ₹570   |
 ## Total Budget :₹4493
 
-# SOFTWARE:
+# SOFTWARE
 ## Hand Tracking and Communication via socket (Python):
 The Python script uses OpenCV to capture and process video from a webcam and Mediapioe to detect and track hand landmarks in real time.This script demonstrates the setup for image processing and hardware communication applications using openCV,Mediapipe,and Socket.
 ● OpenCV: open source computer vision library for computer vision
