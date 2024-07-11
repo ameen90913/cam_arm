@@ -30,11 +30,11 @@ Pin configuration
 | Middle   |10          |C0                 |
 | Pinky    |11          |D6                 |
 
-## CIRCUIT 
+# CIRCUIT 
 
 ![image1](circuit.png)
 
-## Budget And Resource
+# Budget And Resource
 | Component              | Price  |
 |------------------------|--------|
 | Raspberry Pi Pico W    | ₹700   |
@@ -44,7 +44,7 @@ Pin configuration
 | Servo Motor Driver     | ₹700   |
 | Jumper Cable           | ₹150   |
 | SMPS                   | ₹570   |
-# Total Budget :₹4493
+## Total Budget :₹4493
 
 # SOFTWARE:
 ## Hand Tracking and Communication via socket (Python):
@@ -65,26 +65,26 @@ The code demonstrates how to connect an ESP32 to a Wi-Fi network, with setting u
 => Set Up PWM for Servos : Initialize the PWM for each servo pin with frequency te.Handles any exceptions that occur during data processing.
 
 
-## Goals and objectives   
-# Precision and efficient:
+# Goals and objectives   
+## Precision and efficient:
 The robotic arm can be used to achieve unparalleled precision in material handling, sorting, and minimizing operational errors in dynamic and unstructured environments. Additionally, it aims to enhance safety and efficiency by automating complex tasks that traditionally require skilled manual labor.
-# Guide and control:
+## Guide and control:
 The deployment of robotic systems for crowd management could offer significant advantages. These robots can be strategically positioned to direct crowds efficiently to various areas. This solution is cost-effective compared to employing a large number of police officers, as robots can operate interminably
-# Adaptability:
+## Adaptability:
 The robotic arm can also include the ability to learn and adapt to new tasks through machine learning algorithms, thus continuously improving its performance over time. Additionally, it aims to provide real-time feedback and diagnostics, enabling proactive maintenance and reducing downtime in industrial operations.
 
 
-## Key Features
-# Real-Time Hand Gesture Recognition:
+# Key Features
+## Real-Time Hand Gesture Recognition:
 Utilizes OpenCV and Mediapipe to capture and process video from a webcam, enabling real-time detection and tracking of hand landmarks.
 Recognizes and interprets hand gestures instantly, ensuring responsive control of the robotic arm.
-# Integration of Computer Vision and Hardware Control:
+## Integration of Computer Vision and Hardware Control:
 Combines computer vision techniques for gesture recognition with hardware control via Pico W.
 Demonstrates seamless communication between software (Python scripts) and hardware (Raspberry Pi Pico W and servo motors).
-# Serial Communication:
+## Serial Communication:
 Employs Socket for reliable serial communication between the computer and the Pico Board.
 Transmits digital data representing hand gestures to the Pico in real-time, enabling precise control of the servo motors.
-# Servo Motor Control:
+## Servo Motor Control:
 Thonny code receives commands from the Python script and adjusts the servo motors based on the recognized hand gestures.
 Five servo motors correspond to the five fingers, allowing for individual finger movement and complex gestures.
 
