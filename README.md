@@ -81,7 +81,7 @@ Recognizes and interprets hand gestures instantly, ensuring responsive control o
 ## Integration of Computer Vision and Hardware Control:
 Combines computer vision techniques for gesture recognition with hardware control via Pico W.
 Demonstrates seamless communication between software (Python scripts) and hardware (Raspberry Pi Pico W and servo motors).
-## Serial Communication:
+## Wireless Communication:
 Employs Socket for reliable serial communication between the computer and the Pico Board.
 Transmits digital data representing hand gestures to the Pico in real-time, enabling precise control of the servo motors.
 ## Servo Motor Control:
