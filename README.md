@@ -55,6 +55,7 @@ The Python script uses OpenCV to capture and process video from a webcam and Med
 ●Raspberry Pi Pico W :  wireless communication using Wifi Module.
 
 # Working code (Python):
+
 import cv2
 import mediapipe as mp
 import math
@@ -179,6 +180,7 @@ The code demonstrates how to connect an ESP32 to a Wi-Fi network, with setting u
 => Set Up PWM for Servos : Initialize the PWM for each servo pin with frequency te.Handles any exceptions that occur during data processing.
 
 # Working Code of Raspberry Pi Pico W:
+
 import network
 import socket
 from machine import Pin, PWM
