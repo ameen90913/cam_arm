@@ -180,6 +180,7 @@ The code demonstrates how to connect an ESP32 to a Wi-Fi network, with setting u
 => Set Up PWM for Servos : Initialize the PWM for each servo pin with frequency te.Handles any exceptions that occur during data processing.
 
 # Working Code of Raspberry Pi Pico W:
+
 ```
 import network
 import socket
