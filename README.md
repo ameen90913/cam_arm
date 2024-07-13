@@ -179,7 +179,7 @@ The code demonstrates how to connect an ESP32 to a Wi-Fi network, with setting u
 => Connection to Wi-Fi : specify the SSID and Password for initializing the connection.
 => Set Up PWM for Servos : Initialize the PWM for each servo pin with frequency te.Handles any exceptions that occur during data processing.
 
-# Working Code of Raspberry Pi Pico W:
+## Working Code of Raspberry Pi Pico W:
 
 ```
 import network
@@ -264,6 +264,7 @@ while True:
             print('Error:', e)
     cl.close()
 ```
+
 # Goals   
 ## Precision and efficient:
 The robotic arm can be used to achieve unparalleled precision in material handling, sorting, and minimizing operational errors in dynamic and unstructured environments. Additionally, it aims to enhance safety and efficiency by automating complex tasks that traditionally require skilled manual labor.
