@@ -167,7 +167,7 @@ while cap.isOpened():
 cap.release()
 cv2.destroyAllWindows()
 client_socket.close()
-
+```
 
 ## Wi-Fi Controlled Servo Motors using ESP32 And Python Sockets:
 The code demonstrates how to connect an ESP32 to a Wi-Fi network, with setting up     a socket server, and  to control servo motors based on commands received over the   network. The software handles the Wi-Fi connection, initializes the PWM for servos,   sets up the socket server, and processes incoming data to control the servos .
