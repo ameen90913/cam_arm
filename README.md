@@ -301,3 +301,5 @@ Transmits digital data representing hand gestures to the Pico in real-time, enab
 ## Servo Motor Control:
 Thonny code receives commands from the Python script and adjusts the servo motors based on the recognized hand gestures.
 Five servo motors correspond to the five fingers, allowing for individual finger movement and complex gestures.
+
+## File titled RoboGest is the presentation video, please do enjoy.
