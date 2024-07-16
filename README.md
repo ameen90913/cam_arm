@@ -41,6 +41,7 @@ Pin configuration
 | Jumper Cable           | ₹150   |
 | SMPS                   | ₹570   |
 ## Total Budget :₹4493
+![image2](bill.jpg)
 
 # SOFTWARE
 ## Hand Tracking and Communication via socket (Python):
