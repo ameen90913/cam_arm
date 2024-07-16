@@ -1,26 +1,28 @@
 # Cam Arm
 
 ## Project Overview
-The project aims to develop a real-time hand gesture recognition system that detects and tracks hand movements using Mediapipe and Opencv and communicates the recognized gestures to an Arduino for further actions. It also demonstrates the integration of computer vision for gesture recognition with hardware control based on hand gestures.
+The project focuses on developing a real-time hand gesture recognition system that detects and tracks hand movements using Mediapipe and OpenCV. The system is designed to recognize various hand gestures and communicate them wirelessly to a Raspberry Pi Pico W for further processing and actions. The project demonstrates the integration of computer vision for gesture recognition with hardware control based on these gestures.
 
-![image1](circuit.png)
 ![image2](landmarks.png)
 
 
 ## HARDWARE:
-The Arduino UNO controls the robotic arm by sending command signals to the servo motor driver. 
+The Raspberry Pi Pico W controls the robotic arm by sending command signals to the servo motor driver. 
 The servo motor driver interprets these signals and supplies the necessary current to the servo motors, which then deflect the fingers of the arm according to the specified motion. 
-Springs facilitate the fingers ‘back-and-forth’ motion, and an SMPS provides the main power supply to the motors.
-For efficient working of our robotic arm we have replaced our Arduino UNO by a Raspberry Pi
+Springs facilitate the fingers 'back-and-forth motion, and a LiPO Battery of 12V 2200mah provides the main power supply to the motors.
+For efficient working of our robotic arm we have replaced our Arduino UNO to a Raspberry Pi Pico W and SMPS to LiPO Battery of 2200mah which supplies power of 12V to the motor.
 Raspberry Pi Pico is a low-cost, high-performance microcontroller board with flexible digital interfaces. 
+The Raspberry Pi Pico W sends command signals to the servo motor driver via sockets. Based on the received  signals the servo motor driver bends the fingers of the robotic arm  to the respective position thereby mimicking real time hand gestures.
+The motor driver is powered by a LiPO battery of 12 V, 2200mah.
+The fingers of the robotic arm are connected to springs that aid in the back and forth motion.
+
 
 ## CONNECTIONS:
 ● The PWM pins from the Raspberry Pi are connected to the signal ports of the motor driver.
 ● The servo motors’ pins are also connected to the motor driver with respect to their power, signal, and ground pins.
-● The whole circuit is powered using an SMPS which supplies 12V connected to the customized motor driver.
+● The whole circuit is powered using an LiPo Battery which supplies 12V connected to the customized motor driver.
 Raspberry pico W helps to enable wireless communication.
-Pin configuration
-
+## Pin configuration
 (The pins can be connected according to your choice but they must all be PWM signal pins and corresponding servo motor pins must be connected accordingly.)
 | Finger   | PWM Pins   | Motor Driver Pins |
 |----------|------------|-------------------|
@@ -32,19 +34,18 @@ Pin configuration
 
 # CIRCUIT 
 
-![image1](circuit.png)
 
 # Budget And Resource
-| Component              | Price  |
-|------------------------|--------|
-| Raspberry Pi Pico W    | ₹700   |
-| MG995 Servo Motor [5]  | ₹1475  |
-| Acrylic Sheet          | ₹599   |
-| Spring                 | ₹299   | 
-| Servo Motor Driver     | ₹700   |
-| Jumper Cable           | ₹150   |
-| SMPS                   | ₹570   |
-## Total Budget :₹4493
+| Component                | Price  |
+|--------------------------|--------|
+| Raspberry Pi Pico W      | ₹700   |
+| MG995 Servo Motor [5]    | ₹1000  |
+| Acrylic Sheet            | ₹599   |
+| Spring                   | ₹299   | 
+| Servo Motor Driver       | ₹500   |
+| Jumper Cable             | ₹150   |
+| LiPo Battery 12v 2200mah | ₹570   |
+## Total Budget :₹3818
 
 # SOFTWARE:
 ## Hand Tracking and Communication via socket (Python):
@@ -61,31 +62,31 @@ import mediapipe as mp
 import math
 import socket
 
-   // Function to calculate angle between three points (p1, p2, p3)
+# Function to calculate angle between three points (p1, p2, p3)
 def calculate_angle(p1, p2, p3):
     angle_rad = math.atan2(p3[1] - p2[1], p3[0] - p2[0]) - math.atan2(p1[1] - p2[1], p1[0] - p2[0])
     angle_deg = math.degrees(angle_rad)
     return angle_deg + 360 if angle_deg < 0 else angle_deg
 
-    // Function to update hand state array
+# Function to update hand state array
 def update_hand_state(thumb_bent, index_bent, middle_bent, ring_bent, pinky_bent):
     hand_state = [int(thumb_bent), int(index_bent), int(middle_bent), int(ring_bent), int(pinky_bent)]
     return hand_state
 
-   // Set up socket communication
+# Set up socket communication
 host = '192.168.253.40'  # Replace with your Pico W IP address
 port = 8080
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect((host, port))
 
-   // Initialize MediaPipe hands module
+# Initialize MediaPipe hands module
 mp_hands = mp.solutions.hands
 hands = mp_hands.Hands(static_image_mode=False, max_num_hands=1, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
-    // Initialize MediaPipe drawing utilities
+# Initialize MediaPipe drawing utilities
 mp_drawing = mp.solutions.drawing_utils
 
-    // Open default camera
+# Open default camera
 cap = cv2.VideoCapture(0)
 
 while cap.isOpened():
@@ -94,25 +95,25 @@ while cap.isOpened():
         print("Failed to read from camera.")
         break
 
-       //Get the dimensions of the frame
+    # Get the dimensions of the frame
     height, width, _ = frame.shape
 
-       // Define the box dimensions
+    # Define the box dimensions
     box_left = width // 4
     box_top = height // 4
     box_right = 3 * width // 4
     box_bottom = 3 * height // 4
 
-       // Draw a box in the middle of the frame
+    # Draw a box in the middle of the frame
     cv2.rectangle(frame, (box_left, box_top), (box_right, box_bottom), (255, 0, 0), 2)
 
-        // Convert the image to RGB
+    # Convert the image to RGB
     frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
-        // Process the image
+    # Process the image
     results = hands.process(frame_rgb)
 
-         // Draw hand landmarks and analyze finger angles
+    # Draw hand landmarks and analyze finger angles
     if results.multi_hand_landmarks:
         for hand_landmarks in results.multi_hand_landmarks:
             # Get the landmark positions
@@ -122,30 +123,30 @@ while cap.isOpened():
                 y = int(lm.y * height)
                 landmarks.append((x, y))
 
-                  // Check if the hand is within the box
+            # Check if the hand is within the box
             hand_x, hand_y = landmarks[0]  # Using the position of the wrist
             if box_left < hand_x < box_right and box_top < hand_y < box_bottom:
-                      // Draw hand landmarks
+                # Draw hand landmarks
                 mp_drawing.draw_landmarks(frame, hand_landmarks, mp_hands.HAND_CONNECTIONS)
 
-                    // Calculate finger bending status based on x and y coordinates
+                # Calculate finger bending status based on x and y coordinates
                 thumb_bent = landmarks[4][0] >= landmarks[3][0]
                 index_bent = landmarks[8][1] < landmarks[6][1]
                 middle_bent = landmarks[12][1] < landmarks[10][1]
                 ring_bent = landmarks[16][1] < landmarks[14][1]
                 pinky_bent = landmarks[20][1] < landmarks[18][1]
 
-                    // Update hand state array
+                # Update hand state array
                 hand_state = update_hand_state(thumb_bent, index_bent, middle_bent, ring_bent, pinky_bent)
 
-                   // Print hand state in terminal
+                # Print hand state in terminal
                 print("Hand State:", hand_state)
 
-                   // Send hand state to Raspberry Pi Pico W
+                # Send hand state to Raspberry Pi Pico W
                 hand_state_str = ''.join(map(str, hand_state)) + '\n'
                 client_socket.send(hand_state_str.encode('utf-8'))
 
-                    // Display finger status on the image
+                # Display finger status on the image
                 font = cv2.FONT_HERSHEY_SIMPLEX
                 cv2.putText(frame, f'Thumb: {"Straight" if thumb_bent else "Bent"}', (10, 30), font, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
                 cv2.putText(frame, f'Index: {"Straight" if index_bent else "Bent"}', (10, 60), font, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
@@ -153,17 +154,17 @@ while cap.isOpened():
                 cv2.putText(frame, f'Ring: {"Straight" if ring_bent else "Bent"}', (10, 120), font, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
                 cv2.putText(frame, f'Pinky: {"Straight" if pinky_bent else "Bent"}', (10, 150), font, 0.7, (0, 255, 0), 2, cv2.LINE_AA)
 
-                      // Display the hand state array
+                # Display the hand state array
                 cv2.putText(frame, f'Hand State: {hand_state}', (10, 180), font, 0.7, (0, 255, 255), 2, cv2.LINE_AA)
 
-         // Display the resulting frame
+    # Display the resulting frame
     cv2.imshow('Hand Tracking', frame)
 
-        // Exit when 'ESC' is pressed
+    # Exit when 'ESC' is pressed
     if cv2.waitKey(5) & 0xFF == 27:
         break
 
-    // Release resources
+# Release resources
 cap.release()
 cv2.destroyAllWindows()
 client_socket.close()
@@ -179,7 +180,7 @@ The code demonstrates how to connect an ESP32 to a Wi-Fi network, with setting u
 => Connection to Wi-Fi : specify the SSID and Password for initializing the connection.
 => Set Up PWM for Servos : Initialize the PWM for each servo pin with frequency te.Handles any exceptions that occur during data processing.
 
-## Working Code of Raspberry Pi Pico W:
+## Working Code of Raspberry Pi Pico W (Thonny):
 
 ```
 import network
@@ -187,36 +188,36 @@ import socket
 from machine import Pin, PWM
 from time import sleep
 
-   // Wi-Fi connection details
+# Wi-Fi connection details
 ssid = 'Sow'
 password = '11111111'
 
 
-   // Connect to Wi-Fi
+# Connect to Wi-Fi
 wlan = network.WLAN(network.STA_IF)
 wlan.active(True)
 print('Connecting to Wi-Fi...')
 wlan.connect(ssid, password)
 
-   // Debug statement to indicate connection attempt
+# Debug statement to indicate connection attempt
 print(f'Attempting to connect to {ssid}...')
 
-    // Wait for connection
+# Wait for connection
 while not wlan.isconnected():
     sleep(1)
     print('Waiting for connection...')
 
-   // Debug statement to confirm connection
+# Debug statement to confirm connection
 print('Connected to Wi-Fi')
 
-   // Check if connected and get IP address
+# Check if connected and get IP address
 if wlan.isconnected():
     ip = wlan.ifconfig()[0]
     print(f'IP Address: {ip}')
 else:
     print('Failed to get IP address')
 
-   // Set up PWM for servos
+# Set up PWM for servos
 servo_pins = [0, 1, 2, 3, 4]  # GPIO pins connected to the servos
 servos = [PWM(Pin(pin)) for pin in servo_pins]
 for servo in servos:
@@ -232,7 +233,7 @@ def set_servo_angle(servo, state):
     pulse_width = min_pulse + (max_pulse - min_pulse) * (angle / 180)
     servo.duty_u16(int(pulse_width))
 
-    // Socket setup
+# Socket setup
 addr = socket.getaddrinfo('0.0.0.0', 8080)[0][-1]
 s = socket.socket()
 s.bind(addr)
@@ -240,7 +241,7 @@ s.listen(1)
 
 print('Listening on', addr)
 
-     // Main loop
+# Main loop
 while True:
     cl, addr = s.accept()
     print('Client connected from', addr)
@@ -250,11 +251,11 @@ while True:
         if not line or line == b'\r\n':
             break
         try:
-               // Decode and strip newline characters
+            # Decode and strip newline characters
             data = line.decode().strip()
             print(f"Received raw data: {data}")  # Print the raw data for debugging
             
-                // Convert data to a list of integers
+            # Convert data to a list of integers
             hand_state = list(map(int, data))
             if len(hand_state) == 5:
                 print(f"Received hand state: {hand_state}")  # Print the received hand state
