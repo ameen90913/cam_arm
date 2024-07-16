@@ -66,7 +66,7 @@ while True:
             break
         try:
             # Decode and strip newline characters
-            data = line.decode().strip()
+            data = line.decode().strip()wwwwwww
             print(f"Received raw data: {data}")  # Print the raw data for debugging
             
             # Convert data to a list of integers
