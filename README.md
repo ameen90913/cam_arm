@@ -302,5 +302,5 @@ Transmits digital data representing hand gestures to the Pico in real-time, enab
 Thonny code receives commands from the Python script and adjusts the servo motors based on the recognized hand gestures.
 Five servo motors correspond to the five fingers, allowing for individual finger movement and complex gestures.
 
-<iframe width="560" height="315" src="https://youtu.be/RtxnD3WTmC8" frameborder="0" allowfullscreen></iframe>
+![Watch the video](https://youtu.be/RtxnD3WTmC8)
 
