@@ -28,7 +28,7 @@ Pin configuration
 
 # CIRCUIT 
 
-![image1](circuit.png)
+![image1](circuit_new.png)
 
 # Budget And Resource
 | Component              | Price  |
